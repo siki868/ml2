@@ -18,6 +18,7 @@ img = cv2.imread('tests/{}.png'.format(tp_idx))
 
 # Ucitavamo model
 model = keras.models.load_model('fashion.h5')
+class_names = ['Majica', 'Pantalone', 'Duks', 'Haljina', 'Kaput', 'Sandale', 'Kosulja', 'Patike', 'Torba', 'Cizme']
 
 # TODO
 solution = img.copy()

@@ -28,6 +28,7 @@ x_train = x_train.reshape(10000, 28, 28, 1)
 x_test = x_test.reshape(10000, 28, 28, 1)
 
 # Obican model sa obicnim slojevima
+
 # model = keras.Sequential([
 #     keras.layers.Flatten(input_shape=(28, 28)),
 #     keras.layers.Dense(128, activation=tf.nn.relu),
@@ -35,14 +36,48 @@ x_test = x_test.reshape(10000, 28, 28, 1)
 #     keras.layers.Dense(10, activation=tf.nn.softmax)
 # ])
 
-# Konvolucioni model
+# Model sa jednim konvolucionim slojem
 # Duze traje, bolja tacnost
+
 model = keras.Sequential([
-    keras.layers.Conv2D(64, kernel_size=3, activation='relu', input_shape=(28, 28, 1)),
+    keras.layers.Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(28, 28, 1)),
+    keras.layers.MaxPooling2D(pool_size=(2, 2)),
+    keras.layers.Dropout(0.2),
+
     # keras.layers.Conv2D(32, kernel_size=3, activation='relu'),
     keras.layers.Flatten(),
+    keras.layers.Dense(128, activation='relu'),
     keras.layers.Dense(10, activation='softmax')
 ])
+
+# Model za 3 konvoluciona sloja, meh
+
+# model = keras.Sequential([
+#     keras.layers.Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(28, 28, 1)),
+#     keras.layers.BatchNormalization(),
+#     keras.layers.Conv2D(32, kernel_size=(3, 3), activation='relu'),
+#     keras.layers.BatchNormalization(),
+#     keras.layers.MaxPooling2D(pool_size=(2, 2)),
+#     keras.layers.Dropout(0.25),
+#     keras.layers.Conv2D(64, kernel_size=(3, 3), activation='relu'),
+#     keras.layers.BatchNormalization(),
+#     keras.layers.Dropout(0.25),
+#     keras.layers.Conv2D(128, kernel_size=(3, 3), activation='relu'),
+#     keras.layers.BatchNormalization(),
+#     keras.layers.Dropout(0.25),
+
+#     keras.layers.Flatten(),
+#     keras.layers.Dense(512, activation='relu'),
+#     keras.layers.BatchNormalization(),
+#     keras.layers.Dropout(0.5),
+
+#     keras.layers.Dense(128, activation='relu'),
+#     keras.layers.BatchNormalization(),
+#     keras.layers.Dropout(0.5),
+
+#     keras.layers.Dense(10, activation='softmax')
+# ])
+
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
@@ -53,4 +88,4 @@ print(f'Preciznost {test_acc}')
 #################################################################################
 
 # Cuvanje istreniranog modela u fajl
-model.save('fashion.h5')
+#model.save('fashion.h5')
