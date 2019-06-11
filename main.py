@@ -40,11 +40,11 @@ za_predikcije = []
 xy = []
 font = cv2.FONT_HERSHEY_SIMPLEX
 
-# kernel_sharpen = np.asarray([
-#   [0, -1, 0],
-#   [-1, 5, -1],
-#   [0, -1, 0]
-# ])
+kernel_sharpen = np.asarray([
+  [0, -1, 0],
+  [-1, 5, -1],
+  [0, -1, 0]
+])
 
 # print(contours)
 
@@ -61,6 +61,9 @@ for contour in dobri:
     obl = solution[y:y+h, x:x+w]
     obl = (255-obl)
     # obl = cv2.filter2D(obl, -1, kernel_sharpen)
+    obl = cv2.fastNlMeansDenoising(obl, None, h=30)
+    cv2.imshow('img', obl)
+    cv2.waitKey(0)
     resized = cv2.resize(obl, (28, 28))
     resized = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
     resized = np.expand_dims(resized, axis=2)

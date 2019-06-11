@@ -44,7 +44,7 @@ x_test = x_test.reshape(10000, 28, 28, 1)
 model = keras.Sequential([
     keras.layers.Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(28, 28, 1)),        # Konvolucioni sloj sa 32 filtera i kernelom (3, 3)
     keras.layers.MaxPooling2D(pool_size=(2, 2)),                                                    # Smanjujemo dimenzije
-    keras.layers.Dropout(0.2),                                                                      # Ignorisemo neke neurone da ne overfitujemo
+    # keras.layers.Dropout(0.2),                                                                      # Ignorisemo neke neurone da ne overfitujemo
 
     # keras.layers.Conv2D(32, kernel_size=3, activation='relu'),    
     keras.layers.Flatten(),                                                                         # Flattenujemo da bi mogli tensore dalje normalno da koristimo
@@ -99,7 +99,7 @@ model = keras.Sequential([
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-model.fit(x_train, y_train, epochs=5)
+model.fit(x_train, y_train, epochs=10)
 
 test_loss, test_acc = model.evaluate(x_test, y_test)
 print(f'Preciznost {test_acc}')
