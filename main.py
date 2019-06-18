@@ -62,11 +62,10 @@ for contour in dobri:
     obl = (255-obl)
     # obl = cv2.filter2D(obl, -1, kernel_sharpen)
     obl = cv2.fastNlMeansDenoising(obl, None, h=30)
-    cv2.imshow('img', obl)
-    cv2.waitKey(0)
     resized = cv2.resize(obl, (28, 28))
     resized = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
     resized = np.expand_dims(resized, axis=2)
+    resized = resized / 255
     # resized = np.reshape(resized, (28, 28, 1))
     za_predikcije.append(resized)
     cv2.rectangle(solution, (x,y), (x+w,y+h), (255,0,0), 2)
